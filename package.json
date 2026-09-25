@@ -45,10 +45,11 @@
   "scripts": {
     "build": "node scripts/build-client.mjs",
     "check:build": "node scripts/build-client.mjs --check",
+    "check:package": "node scripts/check-package.mjs",
     "check:syntax": "node --check lib/client.js && node --check lib/index.js",
     "test": "node scripts/run-tests.mjs",
-    "prepack": "node scripts/build-client.mjs --check && node scripts/run-tests.mjs",
-    "prepublishOnly": "node scripts/build-client.mjs --check && node scripts/run-tests.mjs"
+    "prepack": "node scripts/build-client.mjs --check && node scripts/check-package.mjs && node scripts/run-tests.mjs",
+    "prepublishOnly": "node scripts/build-client.mjs --check && node scripts/check-package.mjs && node scripts/run-tests.mjs"
   },
   "dsh": {
     "manifestVersion": 1,

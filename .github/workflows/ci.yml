@@ -18,6 +18,10 @@ jobs:
       # that ships behaviour nobody reviewed.
       - name: Bundle is current
         run: node scripts/build-client.mjs --check
+      # Everything the shipped entries reference must be inside `files[]`: a recipient
+      # cannot resolve what the tarball left out.
+      - name: Package references
+        run: node scripts/check-package.mjs
       - name: Syntax
         run: npm run check:syntax
       - name: Tests
