@@ -1,0 +1,18 @@
+# Dependencies. The plugin itself has none, but a checkout may be used for tooling.
+node_modules/
+
+# A workspace-local npm cache: packing under a restricted shell needed one.
+.npm-cache/
+*.tgz
+
+# Editor and OS noise.
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+
+# `lib/` is deliberately **not** ignored. `lib/client.js` is the artifact the web shell
+# serves and the Node half is hand-written ESM; there is no consumer-side build step, so
+# a checkout without `lib/` installs a plugin that cannot load. Rebuild it with
+# `node scripts/build-client.mjs` and let `--check` prove it is current.

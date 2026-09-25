@@ -1,0 +1,14 @@
+# The dsh-jupyter bundle patch.
+#
+# One row carries both halves: the Node half registers the `read_notebook` tool
+# (and needs nothing but `ctx.tools` plus `ctx.fs`), the browser half declares
+# one `dsh.client` entry that registers the `.ipynb` document preview and the
+# tool card. The browser half loads after `ui-sidebar-documentpreview` because
+# package.json declares it under `dsh.client.inject`.
+#
+# Applied as a bundle layer, this patch needs no manual profile edit; when the
+# package is installed as a plain profile dependency instead, copy this row into
+# the profile's own cordis.patch.yml `insert` list.
+- insert:
+    - id: jupyter-notebook
+      name: 'dsh-jupyter'

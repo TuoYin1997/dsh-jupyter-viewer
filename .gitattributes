@@ -1,0 +1,10 @@
+# Line endings are LF everywhere, on every platform.
+#
+# This is not cosmetic: `scripts/build-client.mjs --check` compares the committed
+# `lib/client.js` byte for byte with a freshly composed bundle, and the build writes LF.
+# A checkout that converted the artifact to CRLF would report it as stale and fail the
+# suite, on Windows only — the hardest kind of failure to work out.
+* text=auto eol=lf
+
+# The fixture image is binary; keep it that way.
+*.png binary

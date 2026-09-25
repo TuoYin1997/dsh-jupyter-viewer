@@ -1,0 +1,58 @@
+{
+  "name": "dsh-jupyter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Rendered Jupyter notebook preview and read_notebook tool for DeepSeek Harness",
+  "license": "MIT",
+  "author": "TuoYin",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "jupyter",
+    "notebook",
+    "ipynb"
+  ],
+  "engines": {
+    "node": ">=22",
+    "dsh": "0.1.7-rc.2"
+  },
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "src",
+    "scripts",
+    "test",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build-client.mjs",
+    "check:build": "node scripts/build-client.mjs --check",
+    "check:syntax": "node --check lib/client.js && node --check lib/index.js",
+    "test": "node scripts/run-tests.mjs",
+    "prepack": "node scripts/build-client.mjs --check && node scripts/run-tests.mjs",
+    "prepublishOnly": "node scripts/build-client.mjs --check && node scripts/run-tests.mjs"
+  },
+  "dsh": {
+    "manifestVersion": 1,
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-sidebar-documentpreview"
+      ]
+    }
+  }
+}
