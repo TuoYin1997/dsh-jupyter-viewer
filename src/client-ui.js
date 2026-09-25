@@ -1,5 +1,5 @@
 /**
- * Browser half of `dsh-jupyter`.
+ * Browser half of `dsh-jupyter-viewer`.
  *
  * This file is a *fragment*: `scripts/build-client.mjs` splices it, together
  * with `src/notebook.js`, into the served ModuleLoader bundle. It therefore
@@ -83,7 +83,7 @@ const ZH = {
   'json.collapseNode': '折叠节点',
   'json.expandNode': '展开节点',
   'json.copyButtonTitle': '复制：{action}',
-  'render.failed': 'dsh-jupyter 渲染失败',
+  'render.failed': 'dsh-jupyter-viewer 渲染失败',
   'output.stdout': 'stdout',
   'output.stderr': 'stderr',
   'output.html': 'HTML 输出',
@@ -173,7 +173,7 @@ const EN = {
   'json.collapseNode': 'Collapse node',
   'json.expandNode': 'Expand node',
   'json.copyButtonTitle': 'Copy: {action}',
-  'render.failed': 'dsh-jupyter render failed',
+  'render.failed': 'dsh-jupyter-viewer render failed',
   'output.stdout': 'stdout',
   'output.stderr': 'stderr',
   'output.html': 'HTML output',
@@ -229,6 +229,10 @@ const tint = (color, percent) => `color-mix(in srgb, ${color} ${percent}%, trans
 
 /**
  * A stylesheet scoped to this plugin's own subtree.
+ *
+ * The scope class stays short (`dsh-jupyter`) on purpose while the package is
+ * `dsh-jupyter-viewer`: it is a DOM namespace, not the package name, and renaming it
+ * would churn every selector, the card root and the suite for no behavioural gain.
  *
  * The atoms draw themselves and take no surface props, so the only levers are the
  * stable hooks they expose: the `md-code-block` marker class and its
@@ -435,7 +439,7 @@ class Guard extends React.Component {
   }
 
   componentDidCatch(error) {
-    console.error('[dsh-jupyter] render failed', error)
+    console.error('[dsh-jupyter-viewer] render failed', error)
   }
 
   render() {
@@ -1735,7 +1739,7 @@ function apply(ctx) {
         // user sees `output.expandLines` instead of English text.
         if (typeof value === 'string' && value.length > 0 && value !== key) return value
       } catch (error) {
-        console.warn(`[dsh-jupyter] locale lookup failed for ${key}`, error)
+        console.warn(`[dsh-jupyter-viewer] locale lookup failed for ${key}`, error)
       }
       return EN[key] ?? key
     }
@@ -1756,7 +1760,7 @@ function apply(ctx) {
   const missingAtoms = ['MarkdownText', 'CodeBlock', 'JsonTree'].filter((name) => !isRenderable(primitives[name]))
   if (missingAtoms.length > 0) {
     console.warn(
-      '[dsh-jupyter] primitives not renderable:',
+      '[dsh-jupyter-viewer] primitives not renderable:',
       missingAtoms.map((name) => `${name}=${atomShape(primitives[name])}`).join(', '),
       '| module keys:',
       primitives !== null && typeof primitives === 'object' ? Object.keys(primitives).length : 0
@@ -1838,7 +1842,7 @@ function apply(ctx) {
   ctx.inject(['documentPreviews'], (scoped) => {
     const registry = scoped.get('documentPreviews')
     if (registry === undefined || typeof registry.register !== 'function') {
-      console.warn('[dsh-jupyter] documentPreviews provides no register(); notebook preview disabled')
+      console.warn('[dsh-jupyter-viewer] documentPreviews provides no register(); notebook preview disabled')
       return
     }
     if (slots === undefined) return

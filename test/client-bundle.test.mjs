@@ -545,7 +545,10 @@ function mount(options = {}) {
 
 test('the bundle registers one row under the package name and exposes apply/inject', () => {
   const { row, exports, requested } = loadBundle()
-  assert.equal(row.id, 'dsh-jupyter')
+  // Read from the manifest rather than repeating it: the module id *is* the package
+  // name, and a hard-coded copy here drifts the moment the package is renamed.
+  const manifest = JSON.parse(readFileSync(fileURLToPath(new URL('../package.json', import.meta.url)), 'utf8'))
+  assert.equal(row.id, manifest.name)
   assert.equal(typeof exports.apply, 'function')
   assert.deepEqual(exports.inject, ['slots', 'locale'])
   assert.deepEqual(requested, ['react', '@deepseek-ai/dsh-client-ui-primitives'])

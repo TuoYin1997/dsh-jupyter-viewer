@@ -1,11 +1,10 @@
 {
-  "name": "dsh-jupyter",
+  "name": "dsh-jupyter-viewer",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "description": "Rendered Jupyter notebook preview and read_notebook tool for DeepSeek Harness",
   "license": "MIT",
-  "author": "TuoYin",
+  "author": "Tuo Yin",
   "keywords": [
     "deepseek-harness",
     "dsh",
@@ -14,6 +13,14 @@
     "notebook",
     "ipynb"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TuoYin1997/dsh-jupyter-viewer.git"
+  },
+  "homepage": "https://github.com/TuoYin1997/dsh-jupyter-viewer#readme",
+  "bugs": {
+    "url": "https://github.com/TuoYin1997/dsh-jupyter-viewer/issues"
+  },
   "engines": {
     "node": ">=22",
     "dsh": "0.1.7-rc.2"

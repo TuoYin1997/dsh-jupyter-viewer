@@ -1,4 +1,4 @@
-# dsh-jupyter
+# dsh-jupyter-viewer
 
 Render Jupyter notebooks inside [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)
 instead of looking at `nbformat` JSON.
@@ -56,28 +56,27 @@ pack instead of reaching a user.
 
 Three channels, in increasing order of friction:
 
-**1. Registry (best UX, needs a name).** Remove `"private": true`, then publish and let the recipient
-install it as a bundle — `dsh.bundle.patch` makes the plugin self-wiring, so there is no profile edit
-to hand over:
+**1. Registry (best UX).** Published as `dsh-jupyter-viewer` — the recipient installs it as a bundle and
+`dsh.bundle.patch` makes the plugin self-wiring, so there is no profile edit to hand over:
 
 ```bash
-npm publish --access public
+npm publish
 # recipient:
 #   Settings → Plugins → install   (or the plugin_manager install_bundle action)
 ```
 
-**2. Tarball or git checkout (works today, no registry).** `"private": true` does not block packing or a
-git install, so this needs no manifest change:
+**2. Tarball or git checkout (works today, no registry).** `npm pack` produces the tarball the first
+route installs, with no manifest change:
 
 ```bash
-npm pack                       # -> dsh-jupyter-0.1.0.tgz
+npm pack                       # -> dsh-jupyter-viewer-0.1.0.tgz
 ```
 
 The recipient installs it the way any plugin is installed in the desktop Harness — there is **no `dsh`
 CLI in the desktop build** (its manifest declares no `bin`), so the two working routes are:
 
 - **Settings → Plugins**, or the `plugin_manager` tool's `install_bundle` action, with the tarball path
-  or `github:<you>/dsh-jupyter` as the spec; or
+  or `github:TuoYin1997/dsh-jupyter-viewer` as the spec; or
 - **resolve it in the profile and add the row**: make the package resolvable from
   `…/.dsh/profiles/<profile>/node_modules` (a `git clone`, a copied directory, or a junction to one),
   then add the row from `cordis.patch.yml` to that profile's own `cordis.patch.yml` `insert` list.

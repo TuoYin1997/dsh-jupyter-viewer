@@ -1,4 +1,4 @@
-# The dsh-jupyter bundle patch.
+# The dsh-jupyter-viewer bundle patch.
 #
 # One row carries both halves: the Node half registers the `read_notebook` tool
 # (and needs nothing but `ctx.tools` plus `ctx.fs`), the browser half declares
@@ -11,4 +11,4 @@
 # the profile's own cordis.patch.yml `insert` list.
 - insert:
     - id: jupyter-notebook
-      name: 'dsh-jupyter'
+      name: 'dsh-jupyter-viewer'

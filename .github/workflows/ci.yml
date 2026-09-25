@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # The committed bundle must match the sources. This is not a formality: the
+      # browser half is served from `lib/client.js`, so a stale artifact is a plugin
+      # that ships behaviour nobody reviewed.
+      - name: Bundle is current
+        run: node scripts/build-client.mjs --check
+      - name: Syntax
+        run: npm run check:syntax
+      - name: Tests
+        run: node scripts/run-tests.mjs
