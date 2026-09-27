@@ -39,8 +39,10 @@
     "src",
     "scripts",
     "test",
+    "docs",
     "cordis.patch.yml",
-    "README.md"
+    "README.md",
+    "README.zh-CN.md"
   ],
   "scripts": {
     "build": "node scripts/build-client.mjs",
